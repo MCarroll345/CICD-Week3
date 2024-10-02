@@ -26,7 +26,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PutMapping("changeProduct")
+    @PutMapping("changeProduct/{id}")
     public ResponseEntity changeProduct(@PathVariable long id, @RequestBody Product product){
         int num = (int) id;
         for(int count = 0;count < products.size(); count++){

@@ -1,10 +1,7 @@
 package ie.atu.week3;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +23,29 @@ public class ProductController {
     @PostMapping("addProduct")
     public ResponseEntity addProduct(@RequestBody Product product){
         products.add(product);
+        return ResponseEntity.ok(products);
+    }
+
+    @PutMapping("changeProduct")
+    public ResponseEntity changeProduct(@PathVariable long id, @RequestBody Product product){
+        int num = (int) id;
+        for(int count = 0;count < products.size(); count++){
+            if(products.get(count).getId() == num){
+                products.set(count, product);
+            }
+        }
+
+        return ResponseEntity.ok(products);
+    }
+
+    @DeleteMapping("deleteProduct/{id}")
+    public ResponseEntity deleteProduct(@PathVariable long id){
+        int num = (int) id;
+        for(int count = 0;count < products.size(); count++){
+            if(products.get(count).getId() == num){
+                products.remove(count);
+            }
+        }
         return ResponseEntity.ok(products);
     }
 }
